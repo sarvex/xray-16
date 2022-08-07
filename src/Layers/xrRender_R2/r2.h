@@ -319,7 +319,7 @@ public:
 #elif defined(USE_OGL)
     BackendAPI GetBackendAPI() const override { return IRender::BackendAPI::OpenGL; }
     u32 get_dx_level() override { return /*HW.pDevice1?0x000A0001:*/0x000A0000; }
-    pcstr getShaderPath() override { return "gl\\"; }
+    pcstr getShaderPath() override { return "r3\\"; }
 #else
 #   error No graphics API selected or enabled!
 #endif

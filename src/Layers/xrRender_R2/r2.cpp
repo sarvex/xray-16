@@ -18,6 +18,8 @@
 
 #if defined(USE_DX11)
 #include "Layers/xrRenderDX10/3DFluid/dx103DFluidManager.h"
+#elif defined(USE_OGL)
+#include <ShaderLang.h>
 #endif
 
 CRender RImplementation;
@@ -218,6 +220,9 @@ static bool must_enable_old_cascades()
 // Just two static storage
 void CRender::create()
 {
+#ifdef USE_OGL
+    glslang::InitializeProcess();
+#endif
     Device.seqFrame.Add(this, REG_PRIORITY_HIGH + 0x12345678);
 
     m_skinning = -1;
@@ -643,6 +648,9 @@ void CRender::destroy()
     PSLibrary.OnDestroy();
     Device.seqFrame.Remove(this);
     r_dsgraph_destroy();
+#ifdef USE_OGL
+    glslang::FinalizeProcess();
+#endif
 }
 
 void CRender::reset_begin()
